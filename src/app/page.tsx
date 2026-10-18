@@ -153,7 +153,7 @@ export default function LandingPage() {
         >
           <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#3E4F32]/30 border border-[#6F8055]/30 mb-6">
             <span className="w-2 h-2 rounded-full bg-[#6F8055]" />
-            <span className="text-xs font-semibold text-[#DBCAC0] uppercase tracking-wider">Groq LPU · LinkedIn OAuth · SQLite</span>
+            <span className="text-xs font-semibold text-[#DBCAC0] uppercase tracking-wider">Groq LPU · LinkedIn OAuth · Prisma ORM</span>
           </motion.div>
           
           <motion.h1 variants={fadeIn} className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-[1.15] text-[#DBCAC0]">
@@ -194,8 +194,8 @@ export default function LandingPage() {
           />
           <FeatureCard 
             icon={<Database size={24} />}
-            title="Prisma & SQLite Persistence"
-            description="Type-safe relational schema keeps your drafts, scheduled calendar, and user profiles secure and permanently saved."
+            title="Type-Safe Relational Persistence"
+            description="Prisma schema keeps your drafts, scheduled calendar, and user profiles secure and permanently saved."
             accentColor="#DBCAC0"
           />
           <FeatureCard 
