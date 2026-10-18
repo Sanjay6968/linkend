@@ -1,20 +1,6 @@
-<div align="center">
-
 # ContentMint AI
 
-**AI-powered LinkedIn content operating system for developers, founders, and creators.**  
-*Turn rough thoughts into structured posts in under two seconds — draft, schedule, and publish directly to LinkedIn.*
-
-[![Next.js](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
-[![Firebase](https://img.shields.io/badge/Firebase-Auth-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
-[![Groq](https://img.shields.io/badge/Groq-LPU_Inference-F05A28?style=for-the-badge&logo=fastapi&logoColor=white)](https://groq.com/)
-
-[Features](#key-features) • [Tech Stack](#tech-stack) • [Quickstart](#local-quickstart) • [Architecture](#architecture--data-flow) • [Deployment](#deployment) • [API Routes](#api-routes)
-
-</div>
+AI-powered LinkedIn content operating system for developers, founders, and creators. Turn rough thoughts into structured posts in under two seconds — draft, schedule, and publish directly to LinkedIn.
 
 ---
 
@@ -90,37 +76,13 @@ cd linkend
 npm install
 ```
 
-### 3. Setup environment variables
-Create a `.env.local` file in the root directory:
-
-```env
-# Database (Local SQLite)
-DATABASE_URL="file:./dev.db"
-
-# Firebase Authentication
-NEXT_PUBLIC_FIREBASE_API_KEY="your-firebase-api-key"
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="your-app.firebaseapp.com"
-NEXT_PUBLIC_FIREBASE_PROJECT_ID="your-project-id"
-
-# Groq AI
-GROQ_API_KEY="gsk_your_groq_api_key"
-
-# LinkedIn OAuth 2.0
-LINKEDIN_CLIENT_ID="your_linkedin_client_id"
-LINKEDIN_CLIENT_SECRET="your_linkedin_client_secret"
-LINKEDIN_REDIRECT_URI="http://localhost:3000/api/auth/linkedin/callback"
-
-# App URL
-NEXT_PUBLIC_SITE_URL="http://localhost:3000"
-```
-
-### 4. Initialize Database
+### 3. Initialize Database
 ```bash
 npx prisma generate
 npx prisma db push
 ```
 
-### 5. Start the Development Server
+### 4. Start the Development Server
 ```bash
 npm run dev
 ```
@@ -191,32 +153,13 @@ node scheduler-runner.mjs
 
 ---
 
-## Deployment
+## Deployment to Vercel
 
-### Deploying to Vercel (with Neon PostgreSQL)
-
-Vercel functions run in a serverless environment with an ephemeral filesystem, requiring a cloud database like **Neon (free tier)**:
-
-1. **Create Database:** Create a free PostgreSQL project at [neon.tech](https://neon.tech).
-2. **Update Prisma Schema:** Change `provider = "sqlite"` to `provider = "postgresql"` and add `directUrl = env("DIRECT_URL")` in `prisma/schema.prisma`.
-3. **Configure Vercel:**
-   - Import your repository on [vercel.com](https://vercel.com).
-   - Add all environment variables (with your Neon `DATABASE_URL` and production `LINKEDIN_REDIRECT_URI`).
-   - Set Build Command:
-     ```bash
-     npx prisma generate && npx prisma db push && npm run build
-     ```
-4. **Update LinkedIn App:** Add your production callback URL `https://your-domain.vercel.app/api/auth/linkedin/callback` under Authorized Redirect URLs in the [LinkedIn Developer Portal](https://www.linkedin.com/developers/apps).
-
----
-
-## Security & Privacy
-
-- All API secrets (`GROQ_API_KEY`, `LINKEDIN_CLIENT_SECRET`, Firebase credentials) are strictly protected via server-side environment variables and are never exposed to the client bundle.
-- User data and post drafts are partitioned by Firebase UID, preventing cross-tenant access.
-
----
-
-## License
-
-This project is open-source and licensed under the [MIT License](LICENSE).
+1. Create a free PostgreSQL database on [neon.tech](https://neon.tech).
+2. Update `prisma/schema.prisma` to `provider = "postgresql"` and add `directUrl = env("DIRECT_URL")`.
+3. Import the repository at [vercel.com](https://vercel.com) and configure your project environment variables in the Vercel dashboard.
+4. Set the build command:
+   ```bash
+   npx prisma generate && npx prisma db push && npm run build
+   ```
+5. Add your production callback URL under Authorized Redirect URLs in the [LinkedIn Developer Portal](https://www.linkedin.com/developers/apps).
